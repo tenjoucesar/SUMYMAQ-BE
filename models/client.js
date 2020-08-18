@@ -32,7 +32,7 @@ const Client = mongoose.model('Client', clientSchema);
 
 function validateClient(client) {
   const schema = Joi.object({
-    name: Joi.string().min(5).max(10).required(),
+    name: Joi.string().min(5).max(25).required(),
     phone: Joi.number().integer().min(10000000).max(999999999).required(),
     mail: Joi.string().min(5).max(50).required(),
     address: Joi.string().min(5).max(255).required(),

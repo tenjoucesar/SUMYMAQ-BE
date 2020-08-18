@@ -9,9 +9,12 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const data = req.body;
+  console.log(data);
   const { error } = validate(data);
   if (error)  {
     console.log('failed');
+    console.log(error);
+    console.log(error.details[0]);
     return res.status(400).send(error.details[0]);
   }
 

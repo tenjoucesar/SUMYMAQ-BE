@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
-const clientSchema = new mongoose.Schema({
+const Client = mongoose.model('Client', new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -18,7 +18,7 @@ const clientSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 5,
-    maxlength: 50,
+    maxlength: 100,
   },
   address: {
     type: String,
@@ -26,15 +26,13 @@ const clientSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 255,
   }
-});
-
-const Client = mongoose.model('Client', clientSchema);
+}));
 
 function validateClient(client) {
   const schema = Joi.object({
     name: Joi.string().min(5).max(25).required(),
     phone: Joi.number().integer().min(10000000).max(999999999).required(),
-    mail: Joi.string().min(5).max(50).required(),
+    mail: Joi.string().min(5).max(100).required().email(),
     address: Joi.string().min(5).max(255).required(),
   });
 
@@ -42,5 +40,4 @@ function validateClient(client) {
 }
 
 exports.Client = Client;
-exports.clientSchema = clientSchema;
 exports.validate = validateClient;

@@ -1,3 +1,5 @@
+const auth = require('../middleware/auth');
+const employ = require('../middleware/employ');
 const {Client, validate} = require('../models/client');
 const express = require('express');
 const router = express.Router();
@@ -7,7 +9,9 @@ router.get('/', async (req, res) => {
   res.send(clients);
 });
 
-router.post('/', async (req, res) => {
+// Enable on testing, should delete when FE has token
+// router.post('/', async (req, res) => {
+router.post('/', [auth, employ], async (req, res) => {
   const data = req.body;
   console.log(data);
   const { error } = validate(data);

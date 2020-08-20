@@ -10,7 +10,6 @@ router.get('/me', auth, async(req, res) => {
   res.send(user);
 })
 
-
 router.post('/', async (req, res) => {
 
   const data = req.body;

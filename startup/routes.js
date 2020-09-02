@@ -3,6 +3,7 @@ const clients = require('../routes/client');
 const users = require('../routes/users');
 const auth = require('../routes/auth');
 const error = require('../middleware/error');
+const engine = require('../routes/engine');
 
 module.exports = function(app) {
   app.use(express.json());
@@ -14,6 +15,7 @@ module.exports = function(app) {
   });
   app.use('/api/clients', clients);
   app.use('/api/users', users);
+  app.use('/api/engine', engine);
   app.use('/api/auth', auth);
   app.use(error);
 }

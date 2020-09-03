@@ -10,13 +10,11 @@ router.get('/', async (req, res) => {
 });
 
 // Enable on testing, should delete when FE has token
-router.post('/', async (req, res) => {
-// router.post('/', [auth, employ], async (req, res) => {
+router.post('/', [auth, employ], async (req, res) => {
   const data = req.body;
   console.log('this is the data',data);
   const { error } = validate(data);
   if (error) return res.status(400).send(error.details[0]);
-  // let engine
   let  existingEngine = await Engine.findOne({ serialNumber: data.serialNumber });
   if (existingEngine)  return res.status(400).send('Maquina  ya registrada.');
 
@@ -37,19 +35,12 @@ router.post('/', async (req, res) => {
     frame: data.frame,
     frequency: data.frequency,
     serviceFact: data.serviceFact,
-    // others: data.others,
+    others: data.others,
   });
 
   await engine.save();
 
   res.send(engine);
 });
-
-// router.delete('/:id', async (req, res) => {
-//   const client = await Engine.findByIdAndRemove(req.params.id);
-//   if (!client) return res.status(404).send('The client doesnt exists');
-
-//   res.send(customer);
-// })
 
 module.exports = router;

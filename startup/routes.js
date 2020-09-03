@@ -2,8 +2,10 @@ const express = require('express');
 const clients = require('../routes/client');
 const users = require('../routes/users');
 const auth = require('../routes/auth');
-const error = require('../middleware/error');
 const engine = require('../routes/engine');
+const preliminaryInspection = require('../routes/preliminaryInspection');
+const failureCauses = require('../routes/failureCauses');
+const error = require('../middleware/error');
 
 module.exports = function(app) {
   app.use(express.json());
@@ -16,6 +18,8 @@ module.exports = function(app) {
   app.use('/api/clients', clients);
   app.use('/api/users', users);
   app.use('/api/engine', engine);
+  app.use('/api/preliminaryInspection', preliminaryInspection);
+  app.use('/api/failureCauses', failureCauses);
   app.use('/api/auth', auth);
   app.use(error);
 }
